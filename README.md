@@ -1,6 +1,6 @@
-# DCL-372: Core Spring 5
+# DCL-373: Developing Spring Boot Applications in MSA
 
-These projects are created as part of the following training: DCL-372 "Core Spring 5"
+These projects are created as part of the following training: DCL-373 "Developing Spring Boot Applications in MSA"
 
 Please follow the link for the complete training catalog: https://www.deepcloudlabs.com/resources
 
