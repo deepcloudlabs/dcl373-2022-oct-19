@@ -12,6 +12,7 @@ import com.example.lottery.service.LotteryService;
 @RestController
 @RequestMapping("/numbers")
 @CrossOrigin
+//@RequestScope
 public class LotteryRestController {
 	private final LotteryService lotteryService;
 
