@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.example.lottery.service.LotteryService;
 import com.example.lottery.service.RandomNumberService;
@@ -13,8 +14,10 @@ import com.example.lottery.service.RandomNumberService;
 // Ctrl + Space
 // Ctrl + 1
 // Alt + Shift + S
-@Service
-@Scope("singleton") // default scope
+@Service 
+// default scope is singleton
+//@Scope("session") 
+//@SessionScope
 // Spring Component -> Spring Bean
 public class StandardLotteryService implements LotteryService {
 	private final RandomNumberService randomNumberService;
