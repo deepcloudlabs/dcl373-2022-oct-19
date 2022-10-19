@@ -1,6 +1,7 @@
 package com.example.lottery.service.business;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Service;
@@ -20,16 +21,18 @@ import com.example.lottery.service.ServiceQuality;
 //@SessionScope
 // Spring Component -> Spring Bean
 public class StandardLotteryService implements LotteryService {
-	private final RandomNumberService randomNumberService;
+	private List<RandomNumberService> randomNumberServices;
+	private final AtomicInteger counter= new AtomicInteger(0);
 	
-	public StandardLotteryService(
-			@ServiceQuality(QualityLevel.FAST)
-			RandomNumberService randomNumberService) {
-		this.randomNumberService = randomNumberService;
+	public StandardLotteryService(List<RandomNumberService> randomNumberServices) {
+		this.randomNumberServices = randomNumberServices;
 	}
 
 	@Override
-	public List<Integer> draw(int max, int size) {		
+	public List<Integer> draw(int max, int size) {
+		// load balancing
+		var index = counter.getAndIncrement() % randomNumberServices.size();
+		var randomNumberService = randomNumberServices.get(index);
 		return IntStream.generate(() -> randomNumberService.generates(max))
 				        .distinct()
 				        .limit(size)
