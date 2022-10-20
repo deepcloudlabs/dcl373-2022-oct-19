@@ -14,6 +14,8 @@ public class Country {
 	@Id
 	@Column(name = "code") // not required
 	private String code;
+	@Column(name = "name")
+	private String name;
 	@Column(name = "population")
 	private long population;
 	@Column(name = "surfacearea")
@@ -22,6 +24,14 @@ public class Country {
 	private String continent;
 
 	public Country() {
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCode() {
