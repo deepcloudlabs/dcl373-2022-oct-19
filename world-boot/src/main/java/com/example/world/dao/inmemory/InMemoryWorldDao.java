@@ -4746,7 +4746,7 @@ public class InMemoryWorldDao implements WorldDao {
 	}
 
 	@Override
-	@Profiler
+//	@Profiler
 	public List<Country> findCountriesByContinent(String continent) {
 		List<Country> result = new ArrayList<>();
 		for (Country country : countries.values())

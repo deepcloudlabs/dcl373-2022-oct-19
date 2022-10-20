@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.world.aspect.Profiler;
 import com.example.world.dao.CityDao;
 import com.example.world.dao.CountryDao;
 import com.example.world.dao.WorldDao;
@@ -37,6 +38,7 @@ public class WorldController {
 	
 	// http://localhost:8200/world/api/v1/countries?continent=Asia
 	@GetMapping(value="/countries",params = "continent")
+	@Profiler
 	public List<Country> getAllCountriesByContinent(
 			@RequestParam String continent){
 		return worldDao.findCountriesByContinent(continent);
