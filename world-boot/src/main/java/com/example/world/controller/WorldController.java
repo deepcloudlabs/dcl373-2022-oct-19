@@ -24,6 +24,9 @@ public class WorldController {
 		this.worldDao = worldDao;
 		this.cityDao = cityDao;
 		this.countryDao = countryDao;
+		System.out.println(worldDao.getClass().getName());
+		System.out.println(cityDao.getClass().getName());
+		System.out.println(worldDao.getClass().getName());
 	}
 
 	// http://localhost:8200/world/api/v1/continents

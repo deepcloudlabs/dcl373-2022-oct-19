@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +18,10 @@ public class ProfileAspect {
 //	@AfterReturning
 //	@AfterThrowing
 //	@After
-	@Around("execution(* com.example.world..*(..))")
+	@Around("""
+			worldPackage() && 
+			( methodIsProfilerAnnotated() || classIsProfilerAnnotated())
+			""")
 	public Object profile(ProceedingJoinPoint pjp) throws Throwable {
 		var methodName = pjp.getSignature().getName();
 		var start = System.nanoTime();
@@ -27,4 +31,14 @@ public class ProfileAspect {
 		System.out.println("%s runs %d ns.".formatted(methodName, duration));
 		return result;
 	}
+	
+	@Pointcut("execution(* com.example.world..*(..))")
+	public void worldPackage() {}
+	
+	@Pointcut("@annotation(com.example.world.aspect.Profiler)")
+	public void methodIsProfilerAnnotated() {}
+	
+	@Pointcut("within(@com.example.world.aspect.Profiler *)")
+	public void classIsProfilerAnnotated() {}
+	
 }
