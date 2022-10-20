@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.example.lottery.service.LotteryService;
-import com.example.lottery.service.RandomNumberService;
-
+// -Dspring.profiles.active=test
 @SpringBootApplication
 public class LotteryMicroserviceApplication implements ApplicationRunner {
 	@Autowired

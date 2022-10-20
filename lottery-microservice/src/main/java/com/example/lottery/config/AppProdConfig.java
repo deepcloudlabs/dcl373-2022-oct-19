@@ -12,8 +12,8 @@ import com.example.lottery.service.business.AISupportedLotteryService;
 import com.example.lottery.service.business.CheapRandomNumberService;
 
 @Configuration
-@Profile({"test", "dev"})
-public class AppConfig {
+@Profile({"prod"})
+public class AppProdConfig {
 
 	@Bean
 	@ConditionalOnProperty(name="qualityLevel", havingValue = "cheap")

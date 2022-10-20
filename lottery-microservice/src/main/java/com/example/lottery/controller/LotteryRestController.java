@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lottery.service.LotteryService;
+import com.example.lottery.service.business.StandardLotteryService;
 
 @RestController
 @RequestMapping("/numbers")
 @CrossOrigin
 //@RequestScope
 public class LotteryRestController {
-	private final LotteryService lotteryService;
+	private final StandardLotteryService lotteryService;
 
-	public LotteryRestController(LotteryService lotteryService) {
+	public LotteryRestController(StandardLotteryService lotteryService) {
 		this.lotteryService = lotteryService;
 	}
 
