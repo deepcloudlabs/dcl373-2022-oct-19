@@ -9,9 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.springframework.stereotype.Repository;
-
-import com.example.world.aspect.Profiler;
 import com.example.world.dao.WorldDao;
 import com.example.world.domain.City;
 import com.example.world.domain.Country;

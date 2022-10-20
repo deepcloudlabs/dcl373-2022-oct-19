@@ -22,4 +22,6 @@ public interface CountryRepository extends JpaRepository<Country, String>{
 	List<Country> findAllBySurfaceAreaBetweenAndPopulationBetween(
 			double fromArea,double toArea,
 			int fromPopulation,int toPopulation);
+
+	Country findTopByOrderBySurfaceAreaDesc();
 }
