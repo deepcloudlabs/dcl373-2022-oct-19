@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
+import com.example.world.aspect.Profiler;
 import com.example.world.dao.WorldDao;
 import com.example.world.domain.City;
 import com.example.world.domain.Country;
@@ -4745,6 +4746,7 @@ public class InMemoryWorldDao implements WorldDao {
 	}
 
 	@Override
+	@Profiler
 	public List<Country> findCountriesByContinent(String continent) {
 		List<Country> result = new ArrayList<>();
 		for (Country country : countries.values())
