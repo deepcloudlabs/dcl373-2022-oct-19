@@ -12,6 +12,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.example.validation.Iban;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +38,7 @@ public class Employee {
 	private double salary;
 	@Enumerated(EnumType.ORDINAL)
 	private FiatCurrency currency;
+	@Iban
 	private String iban;
 	@Enumerated(EnumType.STRING)
 	@NotEmpty
