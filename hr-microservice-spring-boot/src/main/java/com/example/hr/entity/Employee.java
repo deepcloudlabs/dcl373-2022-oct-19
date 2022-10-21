@@ -9,8 +9,11 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.DynamicUpdate;
 
 import com.example.validation.Iban;
 
@@ -27,6 +30,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode(of = "identity")
 @ToString(exclude = "photo")
+@DynamicUpdate
 public class Employee {
 	@Id
 	@Pattern(regexp = "^\\d{11}$")
@@ -41,9 +45,9 @@ public class Employee {
 	@Iban
 	private String iban;
 	@Enumerated(EnumType.STRING)
-	@NotEmpty
+	@NotNull
 	private Department department;
-	@NotEmpty
+	@NotNull
 	private JobStyle jobStyle;
 	@Lob
 	@Column(columnDefinition = "longblob")

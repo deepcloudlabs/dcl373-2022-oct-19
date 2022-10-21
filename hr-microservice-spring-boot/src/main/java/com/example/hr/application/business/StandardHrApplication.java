@@ -3,13 +3,14 @@ package com.example.hr.application.business;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.hr.application.HrApplication;
+import com.example.hr.application.business.events.EmployeeFiredEvent;
+import com.example.hr.application.business.events.EmployeeHiredEvent;
 import com.example.hr.application.business.exception.AlreadyExistingEmployee;
 import com.example.hr.application.business.exception.EmployeeNotFoundException;
 import com.example.hr.entity.Employee;
@@ -18,9 +19,11 @@ import com.example.hr.repository.EmployeeRepository;
 @Service
 public class StandardHrApplication implements HrApplication {
 	private final EmployeeRepository employeeRepository;
+	private final ApplicationEventPublisher eventPublisher;
 	
-	public StandardHrApplication(EmployeeRepository employeeRepository) {
+	public StandardHrApplication(EmployeeRepository employeeRepository, ApplicationEventPublisher eventPublisher) {
 		this.employeeRepository = employeeRepository;
+		this.eventPublisher = eventPublisher;
 	}
 
 	@Override
@@ -40,7 +43,10 @@ public class StandardHrApplication implements HrApplication {
 		var identity = employee.getIdentity();
 		if(employeeRepository.existsById(identity))
 			throw new AlreadyExistingEmployee(identity);
-		return employeeRepository.save(employee);
+		Employee persistedEmployee = employeeRepository.save(employee);
+		var event = new EmployeeHiredEvent(employee.getIdentity());
+		eventPublisher.publishEvent(event);
+		return persistedEmployee;
 	}
 
 	@Override
@@ -49,6 +55,8 @@ public class StandardHrApplication implements HrApplication {
 		var employee =  employeeRepository.findById(identity)
 				                 .orElseThrow(() -> new EmployeeNotFoundException(identity));
 		employeeRepository.delete(employee);
+		var event = new EmployeeFiredEvent(employee.getIdentity());
+		eventPublisher.publishEvent(event);
 		return Optional.of(employee);
 	}
 
